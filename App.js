@@ -1,12 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import DeckList from './components/DeckList';
+import { purple, white } from './utils/colors';
+import { Constants } from 'expo';
+
+const UdaciStatusBar = ({ backgroundColor, ...props }) => (
+  <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+    <StatusBar  translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+);
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <DeckList />
+      <View style={{ flex: 1 }}>
+        <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
+        <View style={styles.container}>
+          <DeckList />
+        </View>
       </View>
     );
   }

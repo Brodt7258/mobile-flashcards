@@ -17,7 +17,7 @@ class AddDeck extends Component {
     const { dispatch } = this.props;
     console.log('submitted');
     console.log(this.state);
-    dispatch(addDeck({ title: 'test' }));
+    dispatch(addDeck(this.state));
   }
 
   render() {

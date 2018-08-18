@@ -34,6 +34,7 @@ class DeckList extends Component {
 
   render() {
     //console.log(this.state);
+    const { decks } = this.props;
     return (
       <View>
         <Text>DeckList</Text>
@@ -43,6 +44,10 @@ class DeckList extends Component {
         <TouchableOpacity onPress={this.getData}>
           <Text>Load Data</Text>
         </TouchableOpacity>
+        <Text>Decks from redux</Text>
+        {
+          decks.map(({title, cards}) => <DeckCard title={title} cards={cards} key={title} />)
+        }
       </View>
     );
   }
@@ -50,7 +55,10 @@ class DeckList extends Component {
 
 const mapStateToProps = (decks) => {
   return {
-    decks
+    decks: decks
+      ? Object.values(decks)
+      : []
+
   }
 }
 

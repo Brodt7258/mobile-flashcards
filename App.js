@@ -90,6 +90,9 @@ const Tabs = Platform.OS === 'ios'
 const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
+    navigationOptions: () => ({
+      header: null
+    })
   },
   // DeckDetail: {
   //   screen: DeckDetail,
@@ -108,7 +111,7 @@ export default class App extends React.Component {
       <Provider store={createStore(reducer, middleware)} >
         <View style={{ flex: 1 }}>
           <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
-          <Tabs />
+          <MainNavigator style={{ flex: 1 }}/>
         </View>
       </Provider>
     );

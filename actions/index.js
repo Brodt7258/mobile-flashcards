@@ -9,6 +9,7 @@ export function receiveDecks (decks) {
 }
 
 export function addDeck (deck) {
+  console.log('ACTION', deck)
   return {
     type: ADD_DECK,
     deck

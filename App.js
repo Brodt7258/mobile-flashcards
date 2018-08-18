@@ -9,6 +9,7 @@ import { createStackNavigator, createBottomTabNavigator, createMaterialTopTabNav
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
+import middleware from './middleware';
 
 const UdaciStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -104,7 +105,7 @@ const MainNavigator = createStackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={createStore(reducer)} >
+      <Provider store={createStore(reducer, middleware)} >
         <View style={{ flex: 1 }}>
           <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
           <Tabs />

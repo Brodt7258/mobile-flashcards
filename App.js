@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
+import DeckDetail from './components/DeckDetail';
 import { purple, white } from './utils/colors';
 import { Constants } from 'expo';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
@@ -94,15 +95,15 @@ const MainNavigator = createStackNavigator({
       header: null
     })
   },
-  // DeckDetail: {
-  //   screen: DeckDetail,
-  //   navigationOptions: {
-  //     headerTintColor: white,
-  //     headerStyle: {
-  //       backgroundColor: purple
-  //     }
-  //   }
-  // }
+  DeckDetail: {
+    screen: DeckDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  }
 })
 
 export default class App extends React.Component {

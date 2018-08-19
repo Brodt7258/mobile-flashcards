@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { addDeck } from '../actions';
+import { handleAddDeck } from '../actions';
 
 class AddDeck extends Component {
   
@@ -16,7 +16,7 @@ class AddDeck extends Component {
   handleSubmit = () => {
     const { dispatch, navigation } = this.props;
     
-    dispatch(addDeck(this.state));
+    dispatch(handleAddDeck(this.state));
     this.setState({ title: '' });
 
     navigation.navigate('DeckList');
@@ -42,4 +42,12 @@ class AddDeck extends Component {
   }
 }
 
-export default connect()(AddDeck);
+const mapStateToProps = (decks) => {
+  return {
+    decks: decks
+      ? Object.keys(decks)
+      : []
+  }
+}
+
+export default connect(mapStateToProps)(AddDeck);

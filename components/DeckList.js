@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, TouchableOpacity } from 'react-native';
-import { setDummyData, fetchDeckData, FLASHCARD_STORAGE_KEY } from '../utils/api';
+import { View, Text, AsyncStorage, TouchableOpacity, FlatList } from 'react-native';
+import { clearStorage, FLASHCARD_STORAGE_KEY } from '../utils/api';
 import { handleReceiveDecks } from '../actions';
 import { connect } from 'react-redux';
 import DeckCard from './DeckCard';
@@ -32,20 +32,22 @@ class DeckList extends Component {
   }
 
   render() {
-    console.log(this.state);
+    //console.log(this.state);
     const { decks } = this.props;
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <Text>DeckList</Text>
-        {
-          this.state && Object.values(this.state).map(({title, cards}) => <DeckCard title={title} cards={cards} key={title} />)
-        }
-        <TouchableOpacity onPress={this.getData}>
-          <Text>Load Data</Text>
+        <TouchableOpacity onPress={clearStorage}>
+          <Text>Clear Data</Text>
         </TouchableOpacity>
         <Text>Decks from redux</Text>
-        {
-          decks.map(({title, cards}) => <DeckCard title={title} cards={cards} key={title} />)
+        { 
+          decks.length > 0 &&
+          <FlatList 
+            data={decks}
+            renderItem={({item}) => <DeckCard title={item.title} cards={item.cards} />}
+            keyExtractor={(item) => item.title.toString()}
+          />
         }
       </View>
     );
@@ -57,7 +59,6 @@ const mapStateToProps = (decks) => {
     decks: decks
       ? Object.values(decks)
       : []
-
   }
 }
 

@@ -14,10 +14,13 @@ class AddDeck extends Component {
   }
 
   handleSubmit = () => {
-    const { dispatch } = this.props;
-    console.log('submitted');
-    console.log(this.state);
+    const { dispatch, navigation } = this.props;
+    
     dispatch(addDeck(this.state));
+    this.setState({ title: '' });
+
+    navigation.navigate('DeckList');
+
   }
 
   render() {

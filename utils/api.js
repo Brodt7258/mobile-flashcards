@@ -18,11 +18,12 @@ export function setDummyData() {
     },
   };
 
-  //AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(dummyData));
+  AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(dummyData));
+  console.log('dummy data', dummyData)
   return dummyData;
 }
 
 export function fetchDeckData() {
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
-    .then(results => console.log('API', JSON.parse(results)));
+    .then(res => res === null ? setDummyData() : JSON.parse(res));
 }

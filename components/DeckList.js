@@ -8,10 +8,7 @@ import { AppLoading } from 'expo';
 class DeckList extends Component {
 
   componentDidMount() {
-    const data = setDummyData()
-    console.log('dummy data', data);
-    
-    AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(data)).then(console.log("SAVED DUMMY DATA"))
+    fetchDeckData().then((res) => this.setState(res))
   }
 
   getData = async () => {
@@ -33,7 +30,7 @@ class DeckList extends Component {
   }
 
   render() {
-    //console.log(this.state);
+    console.log(this.state);
     const { decks } = this.props;
     return (
       <View>

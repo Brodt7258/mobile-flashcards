@@ -19,7 +19,7 @@ export function setDummyData() {
   };
 
   AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(dummyData));
-  console.log('dummy data', dummyData)
+  console.log('dummy data', dummyData);
   return dummyData;
 }
 

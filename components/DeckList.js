@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, AsyncStorage, TouchableOpacity } from 'react-native';
 import { setDummyData, fetchDeckData, FLASHCARD_STORAGE_KEY } from '../utils/api';
+import { handleReceiveDecks } from '../actions';
 import { connect } from 'react-redux';
 import DeckCard from './DeckCard';
 import { AppLoading } from 'expo';
@@ -8,7 +9,8 @@ import { AppLoading } from 'expo';
 class DeckList extends Component {
 
   componentDidMount() {
-    fetchDeckData().then((res) => this.setState(res))
+    this.props.dispatch(handleReceiveDecks());
+    //fetchDeckData().then((res) => this.setState(res))
   }
 
   getData = async () => {

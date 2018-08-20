@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { withNavigation } from 'react-navigation';
 
 class DeckDetail extends Component {
 
@@ -12,34 +11,35 @@ class DeckDetail extends Component {
   };
   
   render() {
-    const id = this.props.navigation.state.params.entryId;
-    const deck  = Object.values(this.props.decks).find(d => d.title === id); //I couldn't find an easy way to do this in mapStateToProps
+    const { deck } = this.props;
     return (
       <View>
         <Text>Deck Details</Text>
-        <Text>{id}</Text>
+        <Text>{deck.title}</Text>
         <Text>Contains {deck.cards.length} cards</Text>
         <Button
           title="Take a Quiz"
-          
+          onPress={() => console.log('pressed TakeQuiz')}
         />
         <Button
           title="Add a new Card"
-          onPress={() => this.props.navigation.navigate('AddCard',  { entryId: id, navTitle: id })}
+          onPress={() => this.props.navigation.navigate('AddCard',  { entryId: deck.title, navTitle: deck.title })}
         />
         <Button
           title="Delete Deck"
-          
+          onPress={() => console.log('pressed DeleteDeck')}
         />
       </View>
     )
   }
 }
 
-const mapStateToProps = (decks) => {
+const mapStateToProps = (decks, { navigation }) => {
+  console.log(navigation)
+  const id = navigation.state.params.entryId;
   return {
-    decks
+    deck: decks[id],
   }
 }
 
-export default withNavigation(connect(mapStateToProps)(DeckDetail));
+export default connect(mapStateToProps)(DeckDetail);

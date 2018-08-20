@@ -2,6 +2,7 @@ import { fetchDeckData, addNewDeck } from '../utils/api';
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const ADD_DECK = 'ADD_DECK';
+export const ADD_CARD = 'ADD_CARD';
 
 export const handleReceiveDecks = () => (dispatch) => {
   return fetchDeckData()
@@ -24,9 +25,18 @@ export const handleAddDeck = (deck) => (dispatch) => {
 }
 
 export function addDeck (deck) {
-  console.log('ACTION', deck)
+  console.log('ACTION - addDeck', deck)
   return {
     type: ADD_DECK,
     deck
+  }
+}
+
+export function addCard (deck, card) {
+  console.log('ACTION - addCard', deck, card);
+  return {
+    type: ADD_CARD,
+    deck,
+    card
   }
 }

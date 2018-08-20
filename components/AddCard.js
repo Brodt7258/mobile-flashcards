@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { handleAddCard } from '../actions';
-import { withNavigation } from 'react-navigation';
-
-//import { addCard as apiAddCard } from '../utils/api';
 
 class AddCard extends Component {
 
@@ -15,7 +12,7 @@ class AddCard extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: `Add a new card to ${navigation.state.params.navTitle}`
+      title: `Add a new card to ${navigation.state.params.key}`
     };
   };
 
@@ -24,9 +21,8 @@ class AddCard extends Component {
   }
 
   handleSubmit = () => {
-    const id = this.props.navigation.state.params.entryId;
+    const id = this.props.navigation.state.params.key;
     this.props.dispatch(handleAddCard(id, this.state));
-    //apiAddCard(id, this.state);
     this.props.navigation.goBack();
   }
 
@@ -56,4 +52,4 @@ class AddCard extends Component {
   }
 }
 
-export default withNavigation(connect()(AddCard));
+export default connect()(AddCard);

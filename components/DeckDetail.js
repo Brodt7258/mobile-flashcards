@@ -11,7 +11,7 @@ class DeckDetail extends Component {
   };
   
   render() {
-    const { deck } = this.props;
+    const { deck, navigation } = this.props;
     return (
       <View>
         <Text>Deck Details</Text>
@@ -19,11 +19,11 @@ class DeckDetail extends Component {
         <Text>Contains {deck.cards.length} cards</Text>
         <Button
           title="Take a Quiz"
-          onPress={() => console.log('pressed TakeQuiz')}
+          onPress={() => navigation.navigate('QuizView',  { key: deck.title })}
         />
         <Button
           title="Add a new Card"
-          onPress={() => this.props.navigation.navigate('AddCard',  { entryId: deck.title, navTitle: deck.title })}
+          onPress={() => navigation.navigate('AddCard',  { key: deck.title })}
         />
         <Button
           title="Delete Deck"
@@ -35,7 +35,7 @@ class DeckDetail extends Component {
 }
 
 const mapStateToProps = (decks, { navigation }) => {
-  console.log(navigation)
+  //console.log(navigation)
   const id = navigation.state.params.entryId;
   return {
     deck: decks[id],

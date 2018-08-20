@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { addCard } from '../actions';
+import { handleAddCard } from '../actions';
+import { withNavigation } from 'react-navigation';
+
+//import { addCard as apiAddCard } from '../utils/api';
 
 class AddCard extends Component {
 
@@ -22,7 +25,9 @@ class AddCard extends Component {
 
   handleSubmit = () => {
     const id = this.props.navigation.state.params.entryId;
-    this.props.dispatch(addCard(id, this.state))
+    this.props.dispatch(handleAddCard(id, this.state));
+    //apiAddCard(id, this.state);
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -51,4 +56,4 @@ class AddCard extends Component {
   }
 }
 
-export default connect()(AddCard);
+export default withNavigation(connect()(AddCard));

@@ -40,6 +40,28 @@ export function addNewDeck(deck) {
   return AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY, JSON.stringify(formattedDeck));
 }
 
+export function addNewCard(deck, card) {
+  //console.log(deck, card)
+  return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
+    .then(res => {
+      //console.log('GOT DECKS', res)
+      let decks = JSON.parse(res);
+      //console.log('PARSED DECKS', decks)
+      decks = {
+        ...decks,
+        [deck]: {
+          ...decks[deck],
+          cards: [
+            ...decks[deck].cards,
+            card
+          ]
+        }
+      }
+      //console.log(decks)
+      AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks))
+    })
+}
+
 export function clearStorage() {
   AsyncStorage.removeItem(FLASHCARD_STORAGE_KEY);
 }

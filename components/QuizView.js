@@ -51,6 +51,10 @@ class QuizView extends Component {
       done: false
     });
   }
+
+  goBack = () => {
+    this.props.navigation.goBack();
+  }
   
   render() {
     const { questionList, currentQuestion, correctAnswers, incorrectAnswers, done } = this.state;
@@ -73,7 +77,7 @@ class QuizView extends Component {
         `You answered ${correctAnswers}/${questionList.length} (${percentCorrect}%) questions correctly. ${adviceMsg}`,
         [
           {text: 'Try Again', onPress: this.resetQuiz},
-          {text: 'Done', onPress: () => console.log('OK Pressed')},
+          {text: 'Done', onPress: this.goBack},
         ],
         { cancelable: false }
       )

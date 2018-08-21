@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, FlatList, Button } from 'react-native';
-import { clearStorage, } from '../utils/api';
 import { handleReceiveDecks } from '../actions';
 import { connect } from 'react-redux';
 import DeckCard from './DeckCard';
@@ -15,11 +14,10 @@ class DeckList extends Component {
   render() {
     const { decks, navigation } = this.props;
     return (
-      <View style={{ flex: 1 }}>
-        <Text>DeckList</Text>
-        <TouchableOpacity onPress={clearStorage}>
-          <Text>Clear Data</Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <Text style={styles.title}>
+          Your Decks
+        </Text>
         { 
           decks.length > 0
           ? <FlatList 
@@ -40,6 +38,18 @@ class DeckList extends Component {
     );
   }
 }
+
+const styles = {
+  container: {
+    flex: 1,
+    alignSelf: 'stretch'
+  },
+  title: {
+    fontSize: 30,
+    textAlign: 'center',
+    margin: 10
+  }
+};
 
 const mapStateToProps = (decks) => {
   return {

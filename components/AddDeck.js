@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { handleAddDeck } from '../actions';
 
@@ -14,28 +14,39 @@ class AddDeck extends Component {
   }
 
   handleSubmit = () => {
-    const { dispatch, navigation } = this.props;
+    const { decks, dispatch, navigation } = this.props;
+    const { title } = this.state;
     
-    dispatch(handleAddDeck(this.state));
-    this.setState({ title: '' });
-
-    navigation.navigate('DeckList');
-
+    if (decks.includes(title.toLocaleLowerCase())) {
+      Alert.alert(
+        'Duplicate Name',
+        `You already have a deck called "${title}", please choose something else.`,
+        [
+          {text: 'Ok'},
+        ]
+      )
+    } else {
+      dispatch(handleAddDeck(this.state));
+      this.setState({ title: '' });
+      navigation.navigate('DeckList');
+    }
   }
 
   render() {
+    const { title } = this.state;
     return (
       <View style={{padding: 10}}>
         <Text>What should your new deck be called?</Text>
         <TextInput
           style={{height: 40}}
           placeholder="Deck Title"
-          value={this.state.title}
+          value={title}
           onChangeText={this.handleTextChange}
         />
         <Button
           title="Submit"
           onPress={this.handleSubmit}
+          disabled={!title.length}
         />
       </View>
     );
@@ -45,7 +56,7 @@ class AddDeck extends Component {
 const mapStateToProps = (decks) => {
   return {
     decks: decks
-      ? Object.keys(decks)
+      ? Object.keys(decks).map(d => d.toLocaleLowerCase())
       : []
   }
 }

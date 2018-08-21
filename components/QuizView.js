@@ -14,7 +14,8 @@ class QuizView extends Component {
     currentQuestion: 0,
     correctAnswers: 0,
     incorrectAnswers: 0,
-    done: false
+    done: false,
+    hideAnswer: true
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -36,9 +37,9 @@ class QuizView extends Component {
 
     if (correctAnswers + incorrectAnswers < questionList.length) {
       if (correct) {
-        this.setState((prev) => ({ correctAnswers: prev.correctAnswers + 1 }))
+        this.setState((prev) => ({ correctAnswers: prev.correctAnswers + 1, hideAnswer: true }))
       } else {
-        this.setState((prev) => ({ incorrectAnswers: prev.incorrectAnswers + 1 }))
+        this.setState((prev) => ({ incorrectAnswers: prev.incorrectAnswers + 1, hideAnswer: true }))
       }
     }
   }
@@ -62,10 +63,9 @@ class QuizView extends Component {
     this.props.navigation.goBack();
     this.resetNotification();
   }
-  
-  render() {
-    const { questionList, currentQuestion, correctAnswers, incorrectAnswers, done } = this.state;
 
+  completionAlert = () => {
+    const {questionList, correctAnswers, done } = this.state;
     if (done) {
       const percentCorrect = Math.floor((correctAnswers / questionList.length) * 100);
       let adviceMsg = '';
@@ -89,13 +89,19 @@ class QuizView extends Component {
         { cancelable: false }
       )
     }
+  }
 
+  HiddenAnswer = () => {
+    const { questionList, currentQuestion, hideAnswer } = this.state;
     return (
       <View>
         {
-          currentQuestion < questionList.length
-          ? <View>
-              <Text>{questionList[currentQuestion].question}</Text>
+          hideAnswer
+          ? <Button 
+              title="Show Answer"
+              onPress={() => this.setState({ hideAnswer: false })}
+            />
+          : <View>
               <Text>{questionList[currentQuestion].answer}</Text>
               <Button
                 title="Correct"
@@ -105,7 +111,24 @@ class QuizView extends Component {
                 title="Incorrect"
                 onPress={() => this.handleUserResponse(false)}
               />
-              
+            </View>
+        }
+      </View>
+    );
+  }
+  
+  render() {
+    const { questionList, currentQuestion, correctAnswers, incorrectAnswers} = this.state;
+
+    this.completionAlert();
+
+    return (
+      <View>
+        {
+          currentQuestion < questionList.length
+          ? <View>
+              <Text>{questionList[currentQuestion].question}</Text>
+              <this.HiddenAnswer />
             </View>
           : <View>
               <Text>Done</Text>

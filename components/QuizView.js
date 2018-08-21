@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 class QuizView extends Component {
@@ -10,7 +10,10 @@ class QuizView extends Component {
 
   state = {
     questionList: this.shuffleDeck(),
-    currentQuestion: 0
+    currentQuestion: 0,
+    correctAnswers: 0,
+    incorrectAnswers: 0,
+    done: false
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -18,21 +21,88 @@ class QuizView extends Component {
       title: `Quiz for ${navigation.state.params.key}`
     };
   };
+
+  handleUserResponse = (correct) => {
+    const { currentQuestion, questionList, correctAnswers, incorrectAnswers } = this.state;
+    
+    if(currentQuestion < questionList.length - 1) {
+      this.setState(prev => ({ currentQuestion: prev.currentQuestion + 1 }));
+    } else {
+      this.setState(prev => ({ 
+        currentQuestion: prev.currentQuestion + 1,
+        done: true }));
+    }
+
+    if (correctAnswers + incorrectAnswers < questionList.length) {
+      if (correct) {
+        this.setState((prev) => ({ correctAnswers: prev.correctAnswers + 1 }))
+      } else {
+        this.setState((prev) => ({ incorrectAnswers: prev.incorrectAnswers + 1 }))
+      }
+    }
+  }
+
+  resetQuiz = () => {
+    this.setState({
+      questionList: this.shuffleDeck(),
+      currentQuestion: 0,
+      correctAnswers: 0,
+      incorrectAnswers: 0,
+      done: false
+    });
+  }
   
   render() {
-    const { deck } = this.props;
-    console.log(deck)
+    const { questionList, currentQuestion, correctAnswers, incorrectAnswers, done } = this.state;
+
+    if (done) {
+      const percentCorrect = Math.floor((correctAnswers / questionList.length) * 100);
+      let adviceMsg = '';
+      switch (true) {
+        case (percentCorrect >= 90):
+          adviceMsg = "You've got this!";
+          break;
+        case (percentCorrect >= 80):
+          adviceMsg = 'Almost there!';
+          break;
+        default:
+          adviceMsg = "Keep practicing, you'll get there!"
+      }
+      Alert.alert(
+        'Quiz Completed!',
+        `You answered ${correctAnswers}/${questionList.length} (${percentCorrect}%) questions correctly. ${adviceMsg}`,
+        [
+          {text: 'Try Again', onPress: this.resetQuiz},
+          {text: 'Done', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: false }
+      )
+    }
+
     return (
       <View>
-        <Text>QuizView</Text>
         {
-          this.state.questionList.map((q, i) => (
-              <View key={i}>
-                <Text>{q.question}</Text>
-                <Text>{q.answer}</Text>
-              </View>
-            ))
+          currentQuestion < questionList.length
+          ? <View>
+              <Text>{questionList[currentQuestion].question}</Text>
+              <Text>{questionList[currentQuestion].answer}</Text>
+              <Button
+                title="Correct"
+                onPress={() => this.handleUserResponse(true)}
+              />
+              <Button
+                title="Incorrect"
+                onPress={() => this.handleUserResponse(false)}
+              />
+              
+            </View>
+          : <View>
+              <Text>Done</Text>
+            </View>   
         }
+        <Text>{`Correct: ${correctAnswers}`}</Text>
+        <Text>{`Incorrect: ${incorrectAnswers}`}</Text>
+        <Text>{`Remaining: ${questionList.length - currentQuestion}`}</Text>
       </View>
     )
   }

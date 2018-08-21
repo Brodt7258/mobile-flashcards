@@ -11,7 +11,7 @@ class DeckCard extends Component {
     //console.log(title);
 
     return (
-      <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('DeckDetail',  { entryId: title, navTitle: title })}>
+      <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('DeckDetail',  { id: title })}>
         <Text>{title}</Text>
         <Text>{cards ? cards.length : 0} cards</Text>
       </TouchableOpacity>

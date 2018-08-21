@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, AsyncStorage, TouchableOpacity, FlatList, Button } from 'react-native';
 import { clearStorage, FLASHCARD_STORAGE_KEY } from '../utils/api';
 import { handleReceiveDecks } from '../actions';
 import { connect } from 'react-redux';
@@ -10,7 +10,6 @@ class DeckList extends Component {
 
   componentDidMount() {
     this.props.dispatch(handleReceiveDecks());
-    //fetchDeckData().then((res) => this.setState(res))
   }
 
   getData = async () => {
@@ -32,22 +31,28 @@ class DeckList extends Component {
   }
 
   render() {
-    //console.log(this.state);
-    const { decks } = this.props;
+    const { decks, navigation } = this.props;
     return (
       <View style={{ flex: 1 }}>
         <Text>DeckList</Text>
         <TouchableOpacity onPress={clearStorage}>
           <Text>Clear Data</Text>
         </TouchableOpacity>
-        <Text>Decks from redux</Text>
         { 
-          decks.length > 0 &&
-          <FlatList 
-            data={decks}
-            renderItem={({item}) => <DeckCard title={item.title} cards={item.cards} />}
-            keyExtractor={(item) => item.title.toString()}
-          />
+          decks.length > 0
+          ? <FlatList 
+              data={decks}
+              renderItem={({item}) => <DeckCard title={item.title} cards={item.cards} />}
+              keyExtractor={(item) => item.title.toString()}
+            />
+          : <View>
+              <Text>No Decks yet</Text>
+              <Text>Create one to get started!</Text>
+              <Button 
+                title="Create Deck"
+                onPress={() => navigation.navigate('AddDeck')}
+              />
+            </View>
         }
       </View>
     );

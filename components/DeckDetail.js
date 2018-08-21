@@ -6,7 +6,7 @@ class DeckDetail extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.navTitle
+      title: navigation.state.params.id
     }
   };
   
@@ -36,7 +36,7 @@ class DeckDetail extends Component {
 
 const mapStateToProps = (decks, { navigation }) => {
   //console.log(navigation)
-  const id = navigation.state.params.entryId;
+  const id = navigation.state.params.id;
   return {
     deck: decks[id],
   }

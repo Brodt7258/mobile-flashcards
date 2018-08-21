@@ -13,6 +13,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import middleware from './middleware';
+import { setLocalNotification } from './utils/api';
 
 const UdaciStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -127,6 +128,11 @@ const MainNavigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
+  
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(reducer, middleware)} >

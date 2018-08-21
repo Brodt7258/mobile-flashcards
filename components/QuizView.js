@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { setLocalNotification, clearLocalNotification } from '../utils/api';
 
 class QuizView extends Component {
 
@@ -42,6 +43,11 @@ class QuizView extends Component {
     }
   }
 
+  resetNotification() {
+    clearLocalNotification()
+      .then(setLocalNotification);
+  }
+
   resetQuiz = () => {
     this.setState({
       questionList: this.shuffleDeck(),
@@ -52,8 +58,9 @@ class QuizView extends Component {
     });
   }
 
-  goBack = () => {
+  quizComplete = () => {
     this.props.navigation.goBack();
+    this.resetNotification();
   }
   
   render() {
@@ -77,7 +84,7 @@ class QuizView extends Component {
         `You answered ${correctAnswers}/${questionList.length} (${percentCorrect}%) questions correctly. ${adviceMsg}`,
         [
           {text: 'Try Again', onPress: this.resetQuiz},
-          {text: 'Done', onPress: this.goBack},
+          {text: 'Done', onPress: this.quizComplete},
         ],
         { cancelable: false }
       )

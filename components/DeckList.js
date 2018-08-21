@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, TouchableOpacity, FlatList, Button } from 'react-native';
-import { clearStorage, FLASHCARD_STORAGE_KEY } from '../utils/api';
+import { View, Text, TouchableOpacity, FlatList, Button } from 'react-native';
+import { clearStorage, } from '../utils/api';
 import { handleReceiveDecks } from '../actions';
 import { connect } from 'react-redux';
 import DeckCard from './DeckCard';
@@ -10,24 +10,6 @@ class DeckList extends Component {
 
   componentDidMount() {
     this.props.dispatch(handleReceiveDecks());
-  }
-
-  getData = async () => {
-    console.log('pressed');
-    try {
-      const data = await AsyncStorage.getItem(FLASHCARD_STORAGE_KEY);
-      console.log('DATA READ', data);
-      const parsedData = JSON.parse(data);
-      console.log(parsedData);
-
-      console.log('pressed');
-
-      this.setState(parsedData);
-
-    } catch(error) {
-      console.log('error');
-      alert(error);
-    }
   }
 
   render() {

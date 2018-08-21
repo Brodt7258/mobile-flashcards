@@ -4,7 +4,7 @@ import { Notifications, Permissions } from 'expo'
 export const FLASHCARD_STORAGE_KEY = 'UdaciQuiz:Flashcards';
 export const FLASHCARD_NOTIFICATION_KEY = 'UdaciQuiz:Notifications';
 
-export function setDummyData() {
+export function setDummyData () {
 
   let dummyData = {
     Deck1: {
@@ -25,12 +25,12 @@ export function setDummyData() {
   return dummyData;
 }
 
-export function fetchDeckData() {
+export function fetchDeckData () {
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
     .then(res => res === null ? setDummyData() : JSON.parse(res));
 }
 
-export function addNewDeck(deck) {
+export function addNewDeck (deck) {
   const formattedDeck = {
     [deck.title]: {
       title: deck.title,
@@ -40,7 +40,7 @@ export function addNewDeck(deck) {
   return AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY, JSON.stringify(formattedDeck));
 }
 
-export function addNewCard(deck, card) {
+export function addNewCard (deck, card) {
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
     .then(res => {
       let decks = JSON.parse(res);
@@ -53,14 +53,25 @@ export function addNewCard(deck, card) {
             card
           ]
         }
-      }
-      AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks))
+      };
+      AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks));
     })
 }
 
-export function clearStorage() {
+export function clearStorage () {
   AsyncStorage.removeItem(FLASHCARD_STORAGE_KEY);
 }
+
+export function removeDeck (deck) {
+  return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
+    .then(res => {
+      let decks = JSON.parse(res);
+      delete decks[deck];
+      AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks));
+    })
+}
+
+
 
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(FLASHCARD_NOTIFICATION_KEY)

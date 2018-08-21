@@ -21,7 +21,6 @@ export function receiveDecks (decks) {
 export const handleAddDeck = deck => dispatch => {
   return addNewDeck(deck)
     .then(() => dispatch(addDeck(deck)))
-    //.then(res => console.log('handleAddDeck', res))
 }
 
 export function addDeck (deck) {

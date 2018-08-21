@@ -26,9 +26,9 @@ class AddDeck extends Component {
         ]
       )
     } else {
-      dispatch(handleAddDeck(this.state));
+      navigation.navigate('DeckList'); //I don't love this, but I couldn't find good info on navigating tabs from inside a stack
+      dispatch(handleAddDeck(this.state)).then(res => navigation.navigate('DeckDetail',  { id: res.deck.title }));
       this.setState({ title: '' });
-      navigation.navigate('DeckList');
     }
   }
 

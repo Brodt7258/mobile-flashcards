@@ -96,3 +96,19 @@ export const getRandomColor = () => {
       return green;
   }
 }
+
+export const getDateString = (timestamp) => {
+  if (!timestamp) return 'Never';
+
+  const date = new Date(timestamp);
+
+  const year = date.getFullYear() % 100;
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return `${addLeadingZeros(month)}/${addLeadingZeros(day)}/${addLeadingZeros(year)}`;
+}
+
+const addLeadingZeros = (number) => {
+  return number < 10 ? `0${number}` : number;
+}

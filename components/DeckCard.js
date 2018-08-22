@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { white, black } from '../utils/colors';
+import { getDateString } from '../utils/helpers';
 
 class DeckCard extends Component {
 
 
   render() {
 
-    const { title, cards, color } = this.props;
+    const { title, cards, color, createdAt, lastReviwed } = this.props.deck;
 
     return (
       <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('DeckDetail',  { id: title })}>
@@ -26,6 +27,16 @@ class DeckCard extends Component {
               {title}
             </Text>
             <Text>{cards.length} cards</Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View style={{ paddingTop: 5 }}>
+              <Text>
+                Created: {getDateString(createdAt)}
+              </Text>
+              <Text>
+                Reviewed: {getDateString(lastReviwed)}
+              </Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>

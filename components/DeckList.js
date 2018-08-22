@@ -40,7 +40,7 @@ class DeckList extends Component {
           decks.length > 0
           ? <FlatList 
               data={decks}
-              renderItem={({item}) => <DeckCard title={item.title} cards={item.cards} color={item.color} />}
+              renderItem={({item}) => <DeckCard deck={item} />}
               keyExtractor={(item) => item.title.toString()}
             />
           : <View>

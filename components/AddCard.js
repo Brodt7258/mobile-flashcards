@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     fontSize: 18,
+    textAlign: 'center'
   },
   submitBtn: {
     width: 200,

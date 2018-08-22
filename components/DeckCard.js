@@ -26,7 +26,7 @@ class DeckCard extends Component {
             <Text style={{ fontSize: 22 }}>
               {title}
             </Text>
-            <Text>{cards.length} cards</Text>
+            <Text>{cards.length} card{cards.length !== 1 && 's'}</Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
             <View style={{ paddingTop: 5 }}>

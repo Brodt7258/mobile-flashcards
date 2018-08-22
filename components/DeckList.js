@@ -42,6 +42,7 @@ class DeckList extends Component {
               data={decks}
               renderItem={({item}) => <DeckCard deck={item} />}
               keyExtractor={(item) => item.title.toString()}
+              ListFooterComponent={<View style={{ height: 20 }}/>}
             />
           : <View>
               <Text>No Decks yet</Text>

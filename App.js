@@ -14,6 +14,7 @@ import { Provider } from 'react-redux';
 import reducer from './reducers';
 import middleware from './middleware';
 import { setLocalNotification } from './utils/helpers';
+import DeckDetailList from './components/DeckDetailList';
 
 const UdaciStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -99,7 +100,7 @@ const MainNavigator = createStackNavigator({
     })
   },
   DeckDetail: {
-    screen: DeckDetail,
+    screen: DeckDetailList,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

@@ -5,14 +5,9 @@ import { handleDeleteDeck } from '../actions';
 import { purple, red, green, white, black } from '../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { getDateString, getTimeColor } from '../utils/helpers';
+import { withNavigation } from 'react-navigation';
 
 class DeckDetail extends Component {
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: `Details for ${navigation.state.params.id}`
-    }
-  };
 
   confirmDelete = () => {
     const { deck, navigation, dispatch } = this.props;
@@ -46,7 +41,7 @@ class DeckDetail extends Component {
                 </View>
                 <View>
                   <Text style={styles.deckContents}>
-                    Contains {deck.cards.length} cards
+                    Contains {deck.cards.length} card{deck.cards.length !== 1 && 's'}
                   </Text>
                   <Text>
                     Created: {getDateString(deck.createdAt)}
@@ -115,8 +110,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (decks, { navigation }) => {
-  const id = navigation.state.params.id;
+const mapStateToProps = (decks, { id }) => {
+  
   return {
     deck: decks[id]
       ? decks[id]
@@ -124,4 +119,4 @@ const mapStateToProps = (decks, { navigation }) => {
   }
 }
 
-export default connect(mapStateToProps)(DeckDetail);
+export default withNavigation(connect(mapStateToProps)(DeckDetail));

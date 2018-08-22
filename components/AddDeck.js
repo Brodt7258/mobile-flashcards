@@ -6,12 +6,16 @@ import { purple } from '../utils/colors';
 
 class AddDeck extends Component {
   
+  DECK_MAX = 33;
+
   state = {
     title: ''
   }
 
   handleTextChange = (title) => {
-    this.setState({ title });
+    if (title.length <= this.DECK_MAX) {
+      this.setState({ title });
+    }
   }
 
   handleSubmit = () => {
@@ -46,6 +50,15 @@ class AddDeck extends Component {
           value={title}
           onChangeText={this.handleTextChange}
         />
+        <View style={{ flexDirection: 'row', height: 20 }}>
+          <View style={{ flex: 1 }}></View>
+          { 
+            this.DECK_MAX - title.length <= 10 &&
+            <Text style={{ marginRight: 30 }}>
+              {this.DECK_MAX - title.length}
+            </Text>
+          }
+        </View>
         <View style={styles.submitBtn}>
           <Button
             title="Submit"

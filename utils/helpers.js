@@ -1,8 +1,32 @@
 import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
 import { red, orange, blue, lightPurp, pink, green } from './colors';
+import { FLASHCARD_STORAGE_KEY } from './api';
 
 export const FLASHCARD_NOTIFICATION_KEY = 'UdaciQuiz:Notifications';
+
+export function setDummyData () {
+
+  let dummyData = {
+    Deck1: {
+      title: 'Deck1',
+      createdAt: 1,
+      lastReviewed: null,
+      color: green,
+      cards: [
+        { question: 'lorem ipsum1', answer: '42' },
+        { question: 'lorem ipsum2', answer: '43' },
+        { question: 'lorem ipsum3', answer: '44' },
+        { question: 'lorem ipsum4', answer: '45' },
+        { question: 'lorem ipsum5', answer: '46' }
+      ]
+    },
+  };
+
+  AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(dummyData));
+  console.log('dummy data', dummyData);
+  return dummyData;
+}
 
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(FLASHCARD_NOTIFICATION_KEY)

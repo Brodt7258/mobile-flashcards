@@ -21,14 +21,15 @@ export function receiveDecks (decks) {
 
 
 export const handleAddDeck = deck => dispatch => {
-  //const color = getRandomColor();
-  const newDeck = {
+  const formattedDeck = {
     title: deck,
     cards: [],
-    color: getRandomColor()
+    color: getRandomColor(),
+    createdAt: Date.now(),
+    lastReviewed: null
   }
-  return addNewDeck(newDeck)
-    .then(() => dispatch(addDeck(newDeck)))
+  return addNewDeck(formattedDeck)
+    .then(() => dispatch(addDeck(formattedDeck)))
 }
 
 export function addDeck (deck) {
@@ -46,7 +47,6 @@ export const handleAddCard = (deck, card) => dispatch => {
 }
 
 export function addCard (deck, card) {
-  console.log('ACTION - addCard', deck, card);
   return {
     type: ADD_CARD,
     deck,
@@ -54,13 +54,14 @@ export function addCard (deck, card) {
   };
 }
 
+
+
 export const handleDeleteDeck = deck => dispatch => {
   return removeDeck(deck)
     .then(() => dispatch(deleteDeck(deck)));
 }
 
 export function deleteDeck (deck) {
-  console.log('ACTION - deleteDeck', deck);
   return {
     type: DELETE_DECK,
     deck

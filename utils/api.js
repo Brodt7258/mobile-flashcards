@@ -1,27 +1,7 @@
 import { AsyncStorage } from 'react-native';
+import { setDummyData } from './helpers';
 
 export const FLASHCARD_STORAGE_KEY = 'UdaciQuiz:Flashcards';
-
-export function setDummyData () {
-
-  let dummyData = {
-    Deck1: {
-      title: 'Deck1',
-      createdAt: 1,
-      cards: [
-        { question: 'lorem ipsum1', answer: '42' },
-        { question: 'lorem ipsum2', answer: '43' },
-        { question: 'lorem ipsum3', answer: '44' },
-        { question: 'lorem ipsum4', answer: '45' },
-        { question: 'lorem ipsum5', answer: '46' }
-      ]
-    },
-  };
-
-  AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(dummyData));
-  console.log('dummy data', dummyData);
-  return dummyData;
-}
 
 export function fetchDeckData () {
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
@@ -29,7 +9,7 @@ export function fetchDeckData () {
 }
 
 export function addNewDeck (deck) {
-  return AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY, JSON.stringify(deck));
+  return AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY, JSON.stringify({ [deck.title]: { ...deck } }));
 }
 
 export function addNewCard (deck, card) {

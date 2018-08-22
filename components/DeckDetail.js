@@ -42,6 +42,7 @@ class DeckDetail extends Component {
                   title="Take a Quiz"
                   onPress={() => navigation.navigate('QuizView',  { key: deck.title })}
                   color={green}
+                  disabled={!deck.cards.length}
                 />
               </View>
               <View style={styles.button}>

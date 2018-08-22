@@ -2,37 +2,19 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { white, black, red, orange, blue, lightPurp, pink } from '../utils/colors';
+import { white, black } from '../utils/colors';
 
 class DeckCard extends Component {
 
-  getRandomColor = () => {
-    const color = Math.floor(Math.random() * 6);
-    switch (color) {
-      case 0:
-        return black;
-      case 1:
-        return red;
-      case 2:
-        return orange;
-      case 3:
-        return blue;
-      case 4:
-        return lightPurp;
-      case 5:
-        return pink;
-    }
-  }
 
   render() {
 
-    const { title, cards } = this.props;
-    const color = this.getRandomColor();
+    const { title, cards, color } = this.props;
 
     return (
       <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('DeckDetail',  { id: title })}>
         <View style={{flex: 1, flexDirection: 'row'}}>
-          <View style={[styles.iconContainer, { backgroundColor: color}]}>
+          <View style={[styles.iconContainer, { backgroundColor: color ? color : black }]}>
             <MaterialCommunityIcons
               name='cards-outline'
               color={white}

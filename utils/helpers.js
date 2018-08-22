@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
+import { red, orange, blue, lightPurp, pink, green } from './colors';
 
 export const FLASHCARD_NOTIFICATION_KEY = 'UdaciQuiz:Notifications';
 
@@ -52,4 +53,22 @@ export function setLocalNotification () {
           })
       }
     })
+}
+
+export const getRandomColor = () => {
+  const color = Math.floor(Math.random() * 6);
+  switch (color) {
+    case 0:
+      return red;
+    case 1:
+      return orange;
+    case 2:
+      return blue;
+    case 3:
+      return lightPurp;
+    case 4:
+      return pink;
+    case 5:
+      return green;
+  }
 }

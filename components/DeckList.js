@@ -7,12 +7,25 @@ import { AppLoading } from 'expo';
 
 class DeckList extends Component {
 
+  state = {
+    ready: false
+  }
+
   componentDidMount() {
-    this.props.dispatch(handleReceiveDecks());
+    this.props.dispatch(handleReceiveDecks())
+      .then(() => this.setState({ ready: true }))
   }
 
   render() {
     const { decks, navigation } = this.props;
+    const { ready } = this.state;
+
+    if (!ready) {
+      return (
+        <AppLoading />
+      );
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>

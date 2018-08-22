@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { handleAddDeck } from '../actions';
 import { purple } from '../utils/colors';
@@ -31,7 +31,7 @@ class AddDeck extends Component {
         ]
       )
     } else {
-      navigation.navigate('DeckList'); //I don't love this, but I couldn't find good info on navigating tabs from inside a stack
+      navigation.navigate('DeckList'); //I don't love this, but I couldn't find good info on navigating tabs from a different location in the stack
       dispatch(handleAddDeck(this.state)).then(res => navigation.navigate('DeckDetail',  { id: res.deck.title }));
       this.setState({ title: '' });
     }
@@ -40,7 +40,7 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state;
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.formTitle}>
           What should your new deck be called?
         </Text>
@@ -67,7 +67,7 @@ class AddDeck extends Component {
             color={purple}
           />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

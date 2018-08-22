@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native
 import { withNavigation } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { white, black } from '../utils/colors';
-import { getDateString } from '../utils/helpers';
+import { getDateString, getTimeColor } from '../utils/helpers';
 
 class DeckCard extends Component {
 
@@ -33,9 +33,14 @@ class DeckCard extends Component {
               <Text>
                 Created: {getDateString(createdAt)}
               </Text>
-              <Text>
-                Reviewed: {getDateString(lastReviewed)}
-              </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Text>
+                  Reviewed:
+                </Text>
+                <Text style={{ color: getTimeColor(lastReviewed) }}>
+                  {` ${getDateString(lastReviewed)}`}
+                </Text>
+              </View>
             </View>
           </View>
         </View>

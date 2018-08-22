@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
-import { red, orange, blue, lightPurp, pink, green } from './colors';
+import { red, orange, blue, lightPurp, pink, green, yellow } from './colors';
 import { FLASHCARD_STORAGE_KEY } from './api';
 
 export const FLASHCARD_NOTIFICATION_KEY = 'UdaciQuiz:Notifications';
@@ -111,4 +111,13 @@ export const getDateString = (timestamp) => {
 
 const addLeadingZeros = (number) => {
   return number < 10 ? `0${number}` : number;
+}
+
+export const getTimeColor = (timestamp) => {
+  const day = 86400000;
+  const now = Date.now();
+
+  if (now - timestamp < day * 3) return green;
+  else if (now - timestamp < day * 5 ) return yellow;
+  else return red;
 }

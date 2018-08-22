@@ -8,3 +8,4 @@ export const lightPurp = '#7c53c3';
 export const pink = '#b93fb3';
 export const black = '#000000';
 export const green = '#4CAF50';
+export const yellow = '#FFEB3B';

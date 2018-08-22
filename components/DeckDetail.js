@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { handleDeleteDeck } from '../actions';
 import { purple, red, green, white, black } from '../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { getDateString } from '../utils/helpers';
+import { getDateString, getTimeColor } from '../utils/helpers';
 
 class DeckDetail extends Component {
 
@@ -51,9 +51,14 @@ class DeckDetail extends Component {
                   <Text>
                     Created: {getDateString(deck.createdAt)}
                   </Text>
-                  <Text>
-                    Reviewed: {getDateString(deck.lastReviewed)}
-                  </Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text>
+                      Reviewed:
+                    </Text>
+                    <Text style={{ color: getTimeColor(deck.lastReviewed) }}>
+                      {` ${getDateString(deck.lastReviewed)}`}
+                    </Text>
+                  </View>
                 </View>
               </View>
               <View style={styles.button}>

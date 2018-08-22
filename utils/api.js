@@ -27,7 +27,7 @@ export function addNewCard (deck, card) {
         }
       };
       AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks))
-    })
+    });
 }
 
 export function clearStorage () {
@@ -40,5 +40,20 @@ export function removeDeck (deck) {
       let decks = JSON.parse(res);
       delete decks[deck];
       AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks));
-    })
+    });
+}
+
+export function setLastReviewed (deck, time) {
+  return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
+    .then(res => {
+      let decks = JSON.parse(res);
+      decks = {
+        ...decks,
+        [deck]: {
+          ...decks[deck],
+          lastReviewed: time
+        }
+      };
+      AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks));
+    });
 }

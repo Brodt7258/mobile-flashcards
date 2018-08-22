@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, ADD_DECK, ADD_CARD, DELETE_DECK } from '../actions';
+import { RECEIVE_DECKS, ADD_DECK, ADD_CARD, DELETE_DECK, SET_REVIEWED } from '../actions';
 
 function decks (state = {}, action) {
   switch (action.type) {
@@ -30,6 +30,16 @@ function decks (state = {}, action) {
       return Object.values(state)
         .filter(d => d.title !== deck)
         .reduce((acc, d) => ({ ...acc, [d.title]: { ...d } }), {})
+    }
+    case SET_REVIEWED: {
+      const { deck, time } = action;
+      return {
+        ...state,
+        [deck]: {
+          ...state[deck],
+          lastReviewed: time
+        }
+      }
     }
     default:
       return state;

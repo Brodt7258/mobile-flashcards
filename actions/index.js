@@ -21,17 +21,20 @@ export function receiveDecks (decks) {
 
 
 export const handleAddDeck = deck => dispatch => {
-  const color = getRandomColor();
-  return addNewDeck(deck, color)
-    .then(() => dispatch(addDeck(deck, color)))
+  //const color = getRandomColor();
+  const newDeck = {
+    title: deck,
+    cards: [],
+    color: getRandomColor()
+  }
+  return addNewDeck(newDeck)
+    .then(() => dispatch(addDeck(newDeck)))
 }
 
-export function addDeck (deck, color) {
-  console.log('ACTION - addDeck', deck)
+export function addDeck (deck) {
   return {
     type: ADD_DECK,
-    deck,
-    color
+    deck
   }
 }
 

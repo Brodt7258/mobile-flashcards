@@ -4,6 +4,7 @@ import { handleReceiveDecks } from '../actions';
 import { connect } from 'react-redux';
 import DeckCard from './DeckCard';
 import { AppLoading } from 'expo';
+import { clearStorage } from '../utils/api';
 
 class DeckList extends Component {
 
@@ -22,7 +23,11 @@ class DeckList extends Component {
 
     if (!ready) {
       return (
-        <AppLoading />
+        //<AppLoading />
+        <Button 
+          title="reset"
+          onPress={clearStorage}
+        />
       );
     }
 

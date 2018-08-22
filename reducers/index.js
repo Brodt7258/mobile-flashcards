@@ -9,14 +9,10 @@ function decks (state = {}, action) {
       }
     }
     case ADD_DECK: {
-      const { deck, color } = action;
+      const { deck } = action;
       return {
         ...state,
-        [deck.title]: {
-          title: deck.title,
-          cards: [],
-          color
-        }
+        [deck.title]: { ...deck }
       }
     }
     case ADD_CARD: {

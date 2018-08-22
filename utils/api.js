@@ -28,15 +28,8 @@ export function fetchDeckData () {
     .then(res => res === null ? setDummyData() : JSON.parse(res));
 }
 
-export function addNewDeck (deck, color) {
-  const formattedDeck = {
-    [deck.title]: {
-      title: deck.title,
-      cards: [],
-      color
-    }
-  };
-  return AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY, JSON.stringify(formattedDeck));
+export function addNewDeck (deck) {
+  return AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY, JSON.stringify(deck));
 }
 
 export function addNewCard (deck, card) {

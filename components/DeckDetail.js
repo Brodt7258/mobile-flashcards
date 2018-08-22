@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
+import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { handleDeleteDeck } from '../actions';
+import { purple, red, green } from '../utils/colors';
 
 class DeckDetail extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.id
+      title: `Deck Details for ${navigation.state.params.id}`
     }
   };
 
@@ -32,29 +33,52 @@ class DeckDetail extends Component {
       <View>
         {
           deck
-          ? <View>
-              <Text>Deck Details</Text>
-              <Text>{deck.title}</Text>
-              <Text>Contains {deck.cards.length} cards</Text>
-              <Button
-                title="Take a Quiz"
-                onPress={() => navigation.navigate('QuizView',  { key: deck.title })}
-              />
-              <Button
-                title="Add a new Card"
-                onPress={() => navigation.navigate('AddCard',  { key: deck.title })}
-              />
-              <Button
-                title="Delete Deck"
-                onPress={this.confirmDelete}
-              />
+          ? <View style={styles.container}>
+              <Text style={styles.deckContents}>
+                Contains {deck.cards.length} cards
+              </Text>
+              <View style={styles.button}>
+                <Button
+                  title="Take a Quiz"
+                  onPress={() => navigation.navigate('QuizView',  { key: deck.title })}
+                  color={green}
+                />
+              </View>
+              <View style={styles.button}>
+                <Button
+                  title="Add a new Card"
+                  onPress={() => navigation.navigate('AddCard',  { key: deck.title })}
+                  color={purple}
+                />
+              </View>
+              <View style={styles.button}>
+                <Button
+                  title="Delete Deck"
+                  onPress={this.confirmDelete}
+                  color={red}
+                />
+              </View>
             </View>
-          : <Text>No deck</Text>
+          : <Text>No deck. This is probably an error</Text>
         }
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    alignItems: 'center'
+  },
+  button: {
+    width: 250,
+    margin: 15
+  },
+  deckContents: {
+    fontSize: 18
+  }
+});
 
 const mapStateToProps = (decks, { navigation }) => {
   const id = navigation.state.params.id;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { handleAddDeck } from '../actions';
+import { purple } from '../utils/colors';
 
 class AddDeck extends Component {
   
@@ -35,23 +36,49 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state;
     return (
-      <View style={{padding: 10}}>
-        <Text>What should your new deck be called?</Text>
+      <View style={styles.container}>
+        <Text style={styles.formTitle}>
+          What should your new deck be called?
+        </Text>
         <TextInput
-          style={{height: 40}}
+          style={styles.formInput}
           placeholder="Deck Title"
           value={title}
           onChangeText={this.handleTextChange}
         />
-        <Button
-          title="Submit"
-          onPress={this.handleSubmit}
-          disabled={!title.length}
-        />
+        <View style={styles.submitBtn}>
+          <Button
+            title="Submit"
+            onPress={this.handleSubmit}
+            disabled={!title.length}
+            color={purple}
+          />
+        </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formTitle: {
+    fontSize: 20,
+    margin: 20
+  },
+  formInput: {
+    height: 50,
+    width: 350,
+    fontSize: 18
+  },
+  submitBtn: {
+    width: 200,
+    margin: 25
+  }
+});
 
 const mapStateToProps = (decks) => {
   return {

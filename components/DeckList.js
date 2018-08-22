@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Button } from 'react-native';
+import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
 import { handleReceiveDecks } from '../actions';
 import { connect } from 'react-redux';
 import DeckCard from './DeckCard';
@@ -39,7 +39,7 @@ class DeckList extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch'
@@ -49,7 +49,7 @@ const styles = {
     textAlign: 'center',
     margin: 10
   }
-};
+});
 
 const mapStateToProps = (decks) => {
   return {

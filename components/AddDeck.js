@@ -40,7 +40,7 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state;
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.container}>
         <Text style={styles.formTitle}>
           What should your new deck be called?
         </Text>
@@ -49,6 +49,7 @@ class AddDeck extends Component {
           placeholder="Deck Title"
           value={title}
           onChangeText={this.handleTextChange}
+          maxLength={this.DECK_MAX}
         />
         <View style={{ flexDirection: 'row', height: 20 }}>
           <View style={{ flex: 1 }}></View>
@@ -67,7 +68,7 @@ class AddDeck extends Component {
             color={purple}
           />
         </View>
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }
@@ -84,8 +85,9 @@ const styles = StyleSheet.create({
   },
   formInput: {
     height: 50,
-    width: 350,
-    fontSize: 18
+    width: 300,
+    fontSize: 18,
+    textAlign: 'center'
   },
   submitBtn: {
     width: 200,

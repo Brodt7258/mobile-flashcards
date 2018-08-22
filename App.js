@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Platform, KeyboardAvoidingView } from 'react-native';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
 import DeckDetail from './components/DeckDetail';
@@ -135,12 +135,14 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Provider store={createStore(reducer, middleware)} >
-        <View style={{ flex: 1 }}>
-          <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
-          <MainNavigator style={{ flex: 1 }}/>
-        </View>
-      </Provider>
+      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+        <Provider store={createStore(reducer, middleware)} >
+          <View style={{ flex: 1 }}>
+            <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
+            <MainNavigator style={{ flex: 1 }}/>
+          </View>
+        </Provider>
+      </KeyboardAvoidingView>
     );
   }
 }

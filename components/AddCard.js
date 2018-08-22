@@ -47,6 +47,7 @@ class AddCard extends Component {
           placeholder="Ask a question"
           value={question}
           onChangeText={this.handleTextChange('question')}
+          maxLength={this.QA_MAX}
         />
         <View style={{ flexDirection: 'row', height: 20 }}>
           <View style={{ flex: 1 }}></View>
@@ -65,6 +66,7 @@ class AddCard extends Component {
           placeholder="Answer it here"
           value={answer}
           onChangeText={this.handleTextChange('answer')}
+          maxLength={this.QA_MAX}
         />
         <View style={{ flexDirection: 'row', height: 20 }}>
           <View style={{ flex: 1 }}></View>
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
   },
   formInput: {
     height: 50,
-    width: 350,
+    width: 300,
     fontSize: 18,
   },
   submitBtn: {

@@ -10,7 +10,7 @@ class DeckCard extends Component {
 
   render() {
 
-    const { title, cards, color, createdAt, lastReviwed } = this.props.deck;
+    const { title, cards, color, createdAt, lastReviewed } = this.props.deck;
 
     return (
       <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('DeckDetail',  { id: title })}>
@@ -34,7 +34,7 @@ class DeckCard extends Component {
                 Created: {getDateString(createdAt)}
               </Text>
               <Text>
-                Reviewed: {getDateString(lastReviwed)}
+                Reviewed: {getDateString(lastReviewed)}
               </Text>
             </View>
           </View>

@@ -3,6 +3,7 @@ import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
 import { purple, red, green } from '../utils/colors';
+import { handleLastReviewed } from '../actions';
 
 class QuizView extends Component {
 
@@ -29,11 +30,14 @@ class QuizView extends Component {
     const { currentQuestion, questionList, correctAnswers, incorrectAnswers } = this.state;
     
     if(currentQuestion < questionList.length - 1) {
-      this.setState(prev => ({ currentQuestion: prev.currentQuestion + 1 }));
+      this.setState(prev => ({ 
+        currentQuestion: prev.currentQuestion + 1 
+      }));
     } else {
       this.setState(prev => ({ 
         currentQuestion: prev.currentQuestion + 1,
-        done: true }));
+        done: true 
+      }));
     }
 
     if (correctAnswers + incorrectAnswers < questionList.length) {
@@ -61,8 +65,11 @@ class QuizView extends Component {
   }
 
   quizComplete = () => {
-    this.props.navigation.goBack();
+    const { navigation, dispatch, deck } = this.props;
+    this.setState({ done: false });
+    navigation.goBack();
     this.resetNotification();
+    dispatch(handleLastReviewed(deck.title, Date.now()));
   }
 
   completionAlert = () => {

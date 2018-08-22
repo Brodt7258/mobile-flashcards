@@ -99,7 +99,7 @@ export const getRandomColor = () => {
 
 export const getDateString = (timestamp) => {
   if (!timestamp) return 'Never';
-
+  
   const date = new Date(timestamp);
 
   const year = date.getFullYear() % 100;

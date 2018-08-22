@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { handleDeleteDeck } from '../actions';
-import { purple, red, green } from '../utils/colors';
+import { purple, red, green, white, black } from '../utils/colors';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { getDateString } from '../utils/helpers';
 
 class DeckDetail extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: `Deck Details for ${navigation.state.params.id}`
+      title: `Details for ${navigation.state.params.id}`
     }
   };
 
@@ -28,15 +30,32 @@ class DeckDetail extends Component {
   }
   
   render() {
-    const { deck, navigation } = this.props;
+    const { navigation, deck } = this.props;
     return (
       <View>
-        {
+        { 
           deck
           ? <View style={styles.container}>
-              <Text style={styles.deckContents}>
-                Contains {deck.cards.length} cards
-              </Text>
+              <View style={{ flexDirection: 'row', margin: 20 }}>
+                <View style={[styles.iconContainer, { backgroundColor: deck.color ? deck.color : black }]}>
+                  <MaterialCommunityIcons
+                    name='cards-outline'
+                    color={white}
+                    size={35}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.deckContents}>
+                    Contains {deck.cards.length} cards
+                  </Text>
+                  <Text>
+                    Created: {getDateString(deck.createdAt)}
+                  </Text>
+                  <Text>
+                    Reviewed: {getDateString(deck.lastReviewed)}
+                  </Text>
+                </View>
+              </View>
               <View style={styles.button}>
                 <Button
                   title="Take a Quiz"
@@ -60,7 +79,7 @@ class DeckDetail extends Component {
                 />
               </View>
             </View>
-          : <Text>No deck. This is probably an error</Text>
+          : <Text>No deck found. This is probably an error</Text>
         }
       </View>
     )
@@ -70,7 +89,7 @@ class DeckDetail extends Component {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   button: {
     width: 250,
@@ -78,13 +97,25 @@ const styles = StyleSheet.create({
   },
   deckContents: {
     fontSize: 18
+  },
+  iconContainer: {
+    padding: 5,
+    borderRadius: 8,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 20,
+    marginTop: 6
   }
 });
 
 const mapStateToProps = (decks, { navigation }) => {
   const id = navigation.state.params.id;
   return {
-    deck: decks[id],
+    deck: decks[id]
+      ? decks[id]
+      : null
   }
 }
 

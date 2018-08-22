@@ -13,7 +13,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import middleware from './middleware';
-import { setLocalNotification } from './utils/api';
+import { setLocalNotification } from './utils/helpers';
 
 const UdaciStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>

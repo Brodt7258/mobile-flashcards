@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { setLocalNotification, clearLocalNotification } from '../utils/api';
+import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
 import { purple, red, green } from '../utils/colors';
 
 class QuizView extends Component {

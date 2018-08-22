@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
+import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { setLocalNotification, clearLocalNotification } from '../utils/api';
+import { purple, red, green } from '../utils/colors';
 
 class QuizView extends Component {
 
@@ -94,23 +95,34 @@ class QuizView extends Component {
   HiddenAnswer = () => {
     const { questionList, currentQuestion, hideAnswer } = this.state;
     return (
-      <View>
+      <View style={styles.answerContainer}>
         {
           hideAnswer
-          ? <Button 
-              title="Show Answer"
-              onPress={() => this.setState({ hideAnswer: false })}
-            />
+          ? <View style={styles.button}>
+              <Button 
+                title="Show Answer"
+                onPress={() => this.setState({ hideAnswer: false })}
+                color={purple}
+              />
+            </View>
           : <View>
-              <Text>{questionList[currentQuestion].answer}</Text>
-              <Button
-                title="Correct"
-                onPress={() => this.handleUserResponse(true)}
-              />
-              <Button
-                title="Incorrect"
-                onPress={() => this.handleUserResponse(false)}
-              />
+              <Text style={[styles.Text, { width: 250 }]}>
+                Answer: {questionList[currentQuestion].answer}
+              </Text>
+              <View style={styles.button}>
+                <Button
+                  title="Correct"
+                  onPress={() => this.handleUserResponse(true)}
+                  color={green}
+                />
+              </View>
+              <View style={styles.button}>
+                <Button
+                  title="Incorrect"
+                  onPress={() => this.handleUserResponse(false)}
+                  color={red}
+                />
+              </View>
             </View>
         }
       </View>
@@ -123,24 +135,58 @@ class QuizView extends Component {
     this.completionAlert();
 
     return (
-      <View>
+      <View style={styles.container}>
         {
           currentQuestion < questionList.length
-          ? <View>
-              <Text>{questionList[currentQuestion].question}</Text>
+          ? <View style={{ flex: 1}}>
+              <Text style={[styles.Text, { width: 250 }]}>
+                Question: {questionList[currentQuestion].question}
+              </Text>
               <this.HiddenAnswer />
             </View>
           : <View>
               <Text>Done</Text>
             </View>   
         }
-        <Text>{`Correct: ${correctAnswers}`}</Text>
-        <Text>{`Incorrect: ${incorrectAnswers}`}</Text>
-        <Text>{`Remaining: ${questionList.length - currentQuestion}`}</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.Text}>
+              {`Correct: ${correctAnswers}`}
+            </Text>
+            <Text style={styles.Text}>
+              {`Incorrect: ${incorrectAnswers}`}
+            </Text>
+          </View>
+          <Text style={styles.Text}>
+            {`Remaining: ${questionList.length - currentQuestion}`}
+          </Text>
+        </View>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  answerContainer: {
+    marginTop: 20,
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  Text: {
+    fontSize: 20
+  },
+  button: {
+    width: 200,
+    margin: 25
+  }
+});
 
 const mapStateToProps = (decks, { navigation }) => {
   const key = navigation.state.params.key

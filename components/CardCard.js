@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 class CardCard extends Component {
   render() {
-    const { question, answer, index, deck, dispatch } = this.props;
+    const { card, index, deck, dispatch } = this.props;
     return (
       <View style={[styles.item, { flexDirection: 'row' }]}>
         <View style={{ flex: 3 }}>
@@ -16,7 +16,7 @@ class CardCard extends Component {
               {'Q: '}
             </Text>
             <Text>
-              {question}
+              {card.question}
             </Text>
           </View>
           <View style={{ borderBottomWidth: 1, borderBottomColor: 'black', width: '100%', marginTop: 10, marginBottom: 10 }}/>
@@ -25,7 +25,7 @@ class CardCard extends Component {
               {'A: '} 
             </Text>
             <Text>
-              {answer}
+              {card.answer}
             </Text>
           </View>
         </View>
@@ -71,6 +71,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   }
-})
+});
 
-export default connect()(CardCard);
+const mapStateToProps = (decks, { deck, index }) => {
+  return {
+    card: decks[deck].cards[index]
+  }
+}
+
+export default connect(mapStateToProps)(CardCard);

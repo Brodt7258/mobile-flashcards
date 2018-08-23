@@ -24,7 +24,7 @@ class DeckDetailList extends Component {
         <FlatList
           data={deck.cards}
           ListHeaderComponent={<DeckDetail id={deck.title}/>}
-          renderItem={({item, index}) => <CardCard question={item.question} answer={item.answer} index={index} deck={deck.title} />}
+          renderItem={({ index }) => <CardCard index={index} deck={deck.title} />}
           keyExtractor={(item, index) => index.toString()}
           ListFooterComponent={<View style={{ height: 20 }}/>}
           ListEmptyComponent={

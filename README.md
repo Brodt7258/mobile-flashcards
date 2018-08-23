@@ -4,7 +4,7 @@ This is my finished code for the third project for Udacity's React Nanodegree pr
 
 Users particpate by creating "decks" centered around a given subject, to which they add "cards" that they
 can quiz themselves on, to help prepare themselves for an exam.
-The app runs on Android or iOS, though was developed primarily on an Android Studio emulator.
+The app has been tested on Android and iOS, though was developed primarily on an Android Studio emulator.
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 

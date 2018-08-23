@@ -22,8 +22,8 @@ class DeckCard extends Component {
               size={35}
             />
           </View>
-          <View>
-            <Text style={{ fontSize: 22 }}>
+          <View style={{ flex: 1 }}>
+            <Text numberOfLines={2} ellipsizeMode="tail" style={{ fontSize: 22 }}>
               {title}
             </Text>
             <Text>{cards.length} card{cards.length !== 1 && 's'}</Text>

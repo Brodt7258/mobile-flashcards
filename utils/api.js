@@ -57,3 +57,18 @@ export function setLastReviewed (deck, time) {
       AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks));
     });
 }
+
+export function removeCard (deck, index) {
+  return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
+    .then(res => {
+      let decks = JSON.parse(res);
+      decks = {
+        ...decks,
+        [deck]: {
+          ...decks[deck],
+          cards: decks[deck].cards.filter((c, i) => i !== index)
+        }
+      };
+      AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(decks))
+    });
+}

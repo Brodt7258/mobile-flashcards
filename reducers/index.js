@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, ADD_DECK, ADD_CARD, DELETE_DECK, SET_REVIEWED } from '../actions';
+import { RECEIVE_DECKS, ADD_DECK, ADD_CARD, DELETE_DECK, SET_REVIEWED, DELETE_CARD } from '../actions';
 
 function decks (state = {}, action) {
   switch (action.type) {
@@ -38,6 +38,16 @@ function decks (state = {}, action) {
         [deck]: {
           ...state[deck],
           lastReviewed: time
+        }
+      }
+    }
+    case DELETE_CARD: {
+      const { deck, card } = action;
+      return {
+        ...state,
+        [deck]: {
+          ...state[deck],
+          cards: state[deck].cards.filter((c, i) => i !== card)
         }
       }
     }

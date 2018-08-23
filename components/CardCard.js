@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { white, red, purple } from '../utils/colors';
 import { Ionicons } from '@expo/vector-icons';
+import { handleDeleteCard } from '../actions';
+import { connect } from 'react-redux';
 
-export default class CardCard extends Component {
+class CardCard extends Component {
   render() {
-    const { question, answer } = this.props;
-    console.log(this.props);
+    const { question, answer, index, deck, dispatch } = this.props;
     return (
       <View style={[styles.item, { flexDirection: 'row' }]}>
         <View style={{ flex: 3 }}>
@@ -29,7 +30,10 @@ export default class CardCard extends Component {
           </View>
         </View>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', alignItems: 'flex-end' }}>
-          <TouchableOpacity style={[styles.iconContainer, { backgroundColor: red }]}>
+          <TouchableOpacity
+            style={[styles.iconContainer, { backgroundColor: red }]}
+            onPress={() => {dispatch(handleDeleteCard(deck, index))}}
+          >
             <Ionicons
               name='ios-trash-outline'
               color={white}
@@ -68,3 +72,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }
 })
+
+export default connect()(CardCard);

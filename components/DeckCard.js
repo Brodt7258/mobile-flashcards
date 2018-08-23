@@ -7,7 +7,6 @@ import { getDateString, getTimeColor } from '../utils/helpers';
 
 class DeckCard extends Component {
 
-
   render() {
 
     const { title, cards, color, createdAt, lastReviewed } = this.props.deck;

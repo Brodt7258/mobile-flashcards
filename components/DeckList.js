@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import DeckCard from './DeckCard';
 import { AppLoading } from 'expo';
 import { clearStorage } from '../utils/api';
+import { purple } from '../utils/colors';
 
 class DeckList extends Component {
 
@@ -44,12 +45,17 @@ class DeckList extends Component {
               keyExtractor={(item) => item.title.toString()}
               ListFooterComponent={<View style={{ height: 20 }}/>}
             />
-          : <View>
-              <Text>No Decks yet</Text>
-              <Text>Create one to get started!</Text>
+          : <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+              <Text style={{ fontSize: 18 }}>
+                Nothing to see here yet...
+              </Text>
+              <Text style={{ fontSize: 18, marginBottom: 25 }}>
+                Create a deck to get started!
+              </Text>
               <Button 
                 title="Create Deck"
                 onPress={() => navigation.navigate('AddDeck')}
+                color={purple}
               />
             </View>
         }

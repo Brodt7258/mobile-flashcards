@@ -1,4 +1,4 @@
-import { fetchDeckData, addNewDeck, addNewCard, removeDeck, setLastReviewed } from '../utils/api';
+import { fetchDeckData, addNewDeck, addNewCard, removeDeck, setLastReviewed, removeCard } from '../utils/api';
 import { getRandomColor } from '../utils/helpers';
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
@@ -6,6 +6,7 @@ export const ADD_DECK = 'ADD_DECK';
 export const ADD_CARD = 'ADD_CARD';
 export const DELETE_DECK = 'DELETE_DECK';
 export const SET_REVIEWED = 'SET_REVIEWED';
+export const DELETE_CARD = 'DELETE_CARD';
 
 export const handleReceiveDecks = () => (dispatch) => {
   return fetchDeckData()
@@ -82,5 +83,20 @@ export function lastReviewed (deck, time) {
     type: SET_REVIEWED,
     deck,
     time
+  };
+}
+
+
+
+export const handleDeleteCard = (deck, card) => dispatch => {
+  return removeCard(deck, card)
+    .then(() => dispatch(deleteCard(deck, card)));
+}
+
+export function deleteCard (deck, card) {
+  return {
+    type: DELETE_CARD,
+    deck,
+    card
   };
 }

@@ -24,11 +24,7 @@ class DeckList extends Component {
 
     if (!ready) {
       return (
-        //<AppLoading />
-        <Button 
-          title="reset"
-          onPress={clearStorage}
-        />
+        <AppLoading />
       );
     }
 

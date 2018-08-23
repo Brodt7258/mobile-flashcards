@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, StatusBar, Platform } from 'react-native';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
-import DeckDetail from './components/DeckDetail';
 import AddCard from './components/AddCard';
 import QuizView from './components/QuizView';
 import { purple, white } from './utils/colors';
@@ -131,7 +130,7 @@ const MainNavigator = createStackNavigator({
 export default class App extends React.Component {
   
   componentDidMount() {
-    setLocalNotification()
+    setLocalNotification();
   }
 
   render() {
